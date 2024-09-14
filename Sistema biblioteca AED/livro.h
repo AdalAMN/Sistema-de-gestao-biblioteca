@@ -11,8 +11,10 @@ typedef struct {
 
 Livro* adicionar_livro(Livro* livros, int* total_livros);
 void listar_livros(Livro* livros, int total_livros);
+void buscar_por_titulo(Livro* livros, int total_livros, const char* titulo);
+void buscar_por_autor(Livro* livros, int total_livros, const char* autor);
+void buscar_por_ISBN(Livro* livros, int total_livros, const char* ISBN);
+void emprestar_livro(Livro* livros, int total_livros, const char* titulo);
+void devolver_livro(Livro* livros, int total_livros, const char* titulo);
 
-void* buscar_autor(Livro* L,int total_livros, char nome);
-void* buscar_titulo(Livro* L, int total_livros, char nome);
-void* buscar_isbn(Livro* L, int total_livros, char isbn);
 #endif

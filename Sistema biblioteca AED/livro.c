@@ -43,30 +43,71 @@ void listar_livros(Livro* livros, int total_livros) {
     }
 }
 
-//função para buscar livro pelo autor
-void* buscar_autor(Livro* L,int total_livros, char nome){
-    for(int i = 0; i < total_livros; i++){
-        if(L->autor == nome){
-            return L[i];
+void buscar_por_titulo(Livro* livros, int total_livros, const char* titulo) {
+    for (int i = 0; i < total_livros; i++) {
+        if (strcmp(livros[i].titulo, titulo) == 0) {
+            printf("Livro encontrado:\n");
+            printf("Titulo: %s\n", livros[i].titulo);
+            printf("Autor: %s\n", livros[i].autor);
+            printf("ISBN: %s\n", livros[i].ISBN);
+            printf("Ano de Publicacao: %d\n", livros[i].ano_publicacao);
+            printf("Disponivel: %s\n", livros[i].disponivel ? "Sim" : "Nao");
+            return;
         }
     }
-    return 0;
+    printf("Livro nao encontrado.\n");
 }
 
-//função para buscar livro pelo titulo
-void* buscar_titulo(Livro* L, int total_livros, char nome){
-    for(int i = 0; i < total_livros; i++){
-        if(L->titulo == nome){
-            return L[i];
+//função para buscar livro pelo autor
+void buscar_por_autor(Livro* livros, int total_livros, const char* autor) {
+    for (int i = 0; i < total_livros; i++) {
+        if (strcmp(livros[i].autor, autor) == 0) {
+            printf("Livro(s) encontrado(s)!\n");
+            listar_livros(&livros[i], 1);
         }
     }
-    return 0;
 }
-//função para buscar livro pelo ISBN
-void* buscar_isbn(Livro* L, int total_livros, char isbn){
-    for(int i = 0; i < total_livros; i++){
-        if(L->ISBN == nome){
-            return L[i];
+
+// Função para buscar livro pelo ISBN
+void buscar_por_ISBN(Livro* livros, int total_livros, const char* ISBN) {
+    for (int i = 0; i < total_livros; i++) {
+        if (strcmp(livros[i].ISBN, ISBN) == 0) {
+            printf("Livro encontrado!\n");
+            listar_livros(&livros[i], 1);
+            return;
         }
     }
+    printf("Livro nao encontrado!\n");
+}
+
+// Função para emprestar um livro
+void emprestar_livro(Livro* livros, int total_livros, const char* titulo) {
+    for (int i = 0; i < total_livros; i++) {
+        if (strcmp(livros[i].titulo, titulo) == 0) {
+            if (livros[i].disponivel) {
+                livros[i].disponivel = 0;
+                printf("Livro emprestado com sucesso!\n");
+            } else {
+                printf("O livro ja esta emprestado!\n");
+            }
+            return;
+        }
+    }
+    printf("Livro nao encontrado!\n");
+}
+
+// Função para devolver um livro
+void devolver_livro(Livro* livros, int total_livros, const char* titulo) {
+    for (int i = 0; i < total_livros; i++) {
+        if (strcmp(livros[i].titulo, titulo) == 0) {
+            if (!livros[i].disponivel) {
+                livros[i].disponivel = 1;
+                printf("Livro devolvido com sucesso!\n");
+            } else {
+                printf("O livro ja esta disponivel!\n");
+            }
+            return;
+        }
+    }
+    printf("Livro nao encontrado!\n");
 }
